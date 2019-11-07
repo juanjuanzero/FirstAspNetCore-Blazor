@@ -24,8 +24,17 @@ namespace ChaseRacer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
             services.AddControllersWithViews();
-            services.AddSingleton<ILegData, InMemoryLegData>(); //singleton so we can see the interaction.
+            services.AddSingleton<ILegData, InMemoryLegData>(); //singleton so we can see the interaction for every request.
+            services.AddSingleton<IRunnerData, InMemoryRunnerData>();
+            services.AddSession();
+            services.AddCors(options =>
+                    options.AddPolicy("Local",
+                    builder => { builder.WithOrigins("https://localhost:44329/"); }
+                    )
+                ); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,18 +50,24 @@ namespace ChaseRacer
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors("Local");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
+            
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/_Host");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
             });
         }
     }

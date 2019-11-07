@@ -77,5 +77,11 @@ namespace ChaseRacer.Controllers
             }
             else { return View(leg); }
         }
+
+        public IActionResult Details(int id)
+        {
+            var leg = legData.GetLeg(id);
+            return View(leg);
+        }
     }
 }

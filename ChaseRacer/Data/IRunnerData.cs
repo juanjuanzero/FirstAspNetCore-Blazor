@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace ChaseRacer.Data
 {
-    interface IRunnerData
+    public interface IRunnerData
     {
         IEnumerable<Runner> GetRunners();
-        void AddRunner();
-        void RemoveRunner();
+        bool AddRunner(Runner runner);
+        bool RemoveRunner(Runner runner);
+        Runner GetRunner(int id);
+        bool UpdateRunner(Runner runner);
     }
 }

@@ -1,0 +1,59 @@
+﻿@model ChaseRacer.Models.Runner
+
+@{
+    ViewData["Title"] = "Edit";
+    var selectListItems = Html.GetEnumSelectList(typeof(Van));
+}
+
+<h1>Edit</h1>
+
+<h4>Runner</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RunnerId" class="control-label"></label>
+                <input asp-for="RunnerId" class="form-control" />
+                <span asp-validation-for="RunnerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RunnerNumber" class="control-label"></label>
+                <input asp-for="RunnerNumber" class="form-control" />
+                <span asp-validation-for="RunnerNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NickName" class="control-label"></label>
+                <input asp-for="NickName" class="form-control" />
+                <span asp-validation-for="NickName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaceMinutes" class="control-label"></label>
+                <input asp-for="PaceMinutes" class="form-control" />
+                <span asp-validation-for="PaceMinutes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaceSeconds" class="control-label"></label>
+                <input asp-for="PaceSeconds" class="form-control" />
+                <span asp-validation-for="PaceSeconds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VanDesignation" class="control-label"></label>
+                @Html.DropDownListFor(model => model.VanDesignation, selectListItems, new { @class = "form-control" })
+                <span asp-validation-for="VanDesignation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

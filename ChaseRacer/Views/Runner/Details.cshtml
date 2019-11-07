@@ -1,0 +1,49 @@
+﻿@using FirstBlazorApp.Pages;
+@using Microsoft.AspNetCore.Components.Web;
+@model ChaseRacer.Models.Runner
+
+
+
+<h1>Details</h1>
+
+<div>
+    <h4>Runner</h4>
+    <hr />
+    <div class="row">
+        <div class="col-3">
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RunnerNumber)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.RunnerNumber)
+            </div>
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NickName)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.NickName)
+            </div>
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PaceMinutes)
+            </div>
+            <div class="col-sm-10">
+                @(Model.RunnerPace())
+            </div>
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.VanDesignation)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.VanDesignation)
+            </div>
+        </div>
+        <div class="col-4">
+            <div id="CalculateLegTimes">
+                @(await Html.RenderComponentAsync<CalculateLegTimes>(RenderMode.ServerPrerendered))
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RunnerId }) |
+    <a asp-action="Index">Back to List</a>
+</div>

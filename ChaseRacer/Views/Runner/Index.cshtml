@@ -1,0 +1,58 @@
+﻿@using FirstBlazorApp.Pages;
+@using Microsoft.AspNetCore.Components.Web;
+@model IEnumerable<ChaseRacer.Models.Runner>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div id="CalculateLegTimes">
+    @(await Html.RenderComponentAsync<CalculateLegTimes>(RenderMode.ServerPrerendered))
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RunnerNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NickName)
+            </th>
+            <th>
+                Pace
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VanDesignation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RunnerNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NickName)
+            </td>
+            <td>
+                @(item.RunnerPace())
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VanDesignation)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.RunnerId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.RunnerId  }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.RunnerId  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

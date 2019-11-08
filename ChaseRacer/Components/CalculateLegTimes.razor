@@ -5,7 +5,7 @@
 @using ChaseRacer.Data;
 @using Microsoft.AspNetCore.Blazor;
 
-@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject NavigationManager navigationManager
 @inject ILegData legData
 @inject IRunnerData runnerData
 
@@ -38,6 +38,7 @@
             @if (runner != null)
             {
                 <div>@runner.NickName runs @(runner.PaceMinutes * 60 + runner.PaceSeconds) seconds/mile</div>
+                <div>@runner.NickName would run Leg @SelectedLeg.LegNumber in @(SelectedLeg.LegDistance*(runner.PaceMinutes * 60 + runner.PaceSeconds)/60) minutes</div>
             }
         </div>
     </div>
@@ -60,8 +61,8 @@
 
     protected override void OnInitialized()
     {
-        var uri = new Uri(UriHelper.GetAbsoluteUri());
-        queryId = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("type", out var type) ? type.First() : "";
+        var uri = new Uri(navigationManager.Uri);
+        queryId = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("id", out var type) ? type.First() : "";
 
         var id = Int32.Parse(queryId.ToString());
         runner = runnerData.GetRunner(id);

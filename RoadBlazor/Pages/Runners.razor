@@ -1,0 +1,17 @@
+﻿@page "/runners"
+
+@using ChaseRacer.Data
+
+@inject IRunnerData runnerData
+
+<h3>Racers</h3>
+@foreach (var item in runnerData.GetRunners())
+{
+    <ul>
+        <li>@item.NickName - @item.RunnerPace() per mile</li>
+    </ul>
+}
+
+@code {
+
+}

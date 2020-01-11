@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ChaseRacerShared\ChaseRacerShared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="FirstBlazorApp">
       <HintPath>..\..\FirstBlazorApp\FirstBlazorApp\bin\Debug\netcoreapp3.0\FirstBlazorApp.dll</HintPath>
     </Reference>
